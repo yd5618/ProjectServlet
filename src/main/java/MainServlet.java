@@ -17,11 +17,21 @@ public class MainServlet extends HttpServlet {
         resp.setContentType("text/html");
         resp.getWriter().write("You have accessed the servlet");
         // req.getServletPath(); returns the ServletPath of the URL
+        try {
+            processRequest(req, resp);
+        }
+        catch (Exception e) {
+            System.out.println("There was a problem");
+        }
     }
 
     // doPost will handle POST requests of our client & give appropriate response
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //
+    }
+
+    protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             Connection con = DBConnection.initialiseDB();
             Statement s = con.createStatement();
