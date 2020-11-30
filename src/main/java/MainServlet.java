@@ -22,10 +22,6 @@ public class MainServlet extends HttpServlet {
     // doPost will handle POST requests of our client & give appropriate response
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //
-    }
-
-    public void Conn() {
         try {
             Connection con = DBConnection.initialiseDB();
             Statement s = con.createStatement();
