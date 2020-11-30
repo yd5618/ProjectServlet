@@ -2,6 +2,8 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Statement;
 
 @WebServlet(urlPatterns={"/data"},loadOnStartup = 1) // check what this means exactly
 // specifies which servlet should be invoked for a url given by client?
@@ -23,4 +25,17 @@ public class MainServlet extends HttpServlet {
         //
     }
 
+    public void Conn() {
+        try {
+            Connection con = DBConnection.initialiseDB();
+            Statement s = con.createStatement();
+            String sqlStr = "create table test (id SERIAL PRIMARY KEY,familyname varchar(128),givenname varchar(128),phonenumber varchar(32));";
+            s.executeUpdate(sqlStr);
+            s.close();
+            con.close();
+        }
+        catch (Exception e) {
+            System.out.println("There was a problem");
+        }
+    }
 }
