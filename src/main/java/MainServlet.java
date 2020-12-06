@@ -32,13 +32,18 @@ public class MainServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String reqBody=req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
 
-        // Connecting to the DB and querying what the POST request gave
-        Connection con = DBConnection.initialiseDB();
-        Statement s = con.createStatement();
-        // String sqlStr = "create table test (id SERIAL PRIMARY KEY,familyname varchar(128),givenname varchar(128),phonenumber varchar(32));";
-        s.executeUpdate(reqBody);
-        s.close();
-        con.close();
+        try {
+            // Connecting to the DB and querying what the POST request gave
+            Connection con = DBConnection.initialiseDB();
+            Statement s = con.createStatement();
+            // String sqlStr = "create table test (id SERIAL PRIMARY KEY,familyname varchar(128),givenname varchar(128),phonenumber varchar(32));";
+            s.executeUpdate(reqBody);
+            s.close();
+            con.close();
+        }
+        catch (Exception e) {
+            System.out.println("There was a problem");
+        }
 
         resp.setContentType("text/html");
         resp.getWriter().write("You have successfully modified the DB");
