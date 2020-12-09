@@ -54,7 +54,7 @@ public class MainServlet extends HttpServlet {
         try {
             Connection con = DBConnection.initialiseDB();
             Statement s = con.createStatement();
-            String sqlStr = "create table test (id SERIAL PRIMARY KEY,familyname varchar(128),givenname varchar(128),phonenumber varchar(32));";
+            String sqlStr = "insert into products (brand,nime,amount,sprice,pprice,fullstock,limitation) values('Vicks','Vaporub','100 g',4.5,3.7,15,TRUE);";
             s.executeUpdate(sqlStr);
             s.close();
             con.close();
