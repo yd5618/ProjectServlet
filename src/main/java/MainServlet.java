@@ -14,20 +14,20 @@ import java.util.stream.Collectors;
 public class MainServlet extends HttpServlet {
     // doGet will handle GET requests of our client & give appropriate response
 
-    /*
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // what do we do with req?
         resp.setContentType("text/html");
         resp.getWriter().write("You have accessed the servlet");
         // req.getServletPath(); returns the ServletPath of the URL
+        /*
         try {
             processGETRequest(req, resp);
         }
         catch (Exception e) {
             System.out.println("There was a problem");
-        }
-    } */
+        } */
+    }
 
     // doPost will handle POST requests of our client & give appropriate response
     @Override
