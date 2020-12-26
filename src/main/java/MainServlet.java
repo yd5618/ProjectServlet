@@ -21,6 +21,7 @@ public class MainServlet extends HttpServlet {
         String reqBody=req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
 
         try {
+            /*
             // Connecting to the DB and querying what the POST request gave
             Connection con = DBConnection.initialiseDB();
             Statement s = con.createStatement();
@@ -29,7 +30,9 @@ public class MainServlet extends HttpServlet {
                 System.out.println(rset.getString("brand"));
             }
             s.close();
-            con.close();
+            con.close(); */
+            resp.setContentType("text/html");
+            resp.getWriter().write("Hello, world");
         }
         catch (Exception e) {
             System.out.println("There was a problem");
@@ -48,6 +51,7 @@ public class MainServlet extends HttpServlet {
         } */
     }
 
+    /*
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Get the request body (SQL query to be executed)
@@ -68,5 +72,5 @@ public class MainServlet extends HttpServlet {
 
         resp.setContentType("text/html");
         resp.getWriter().write("You have successfully modified the DB - this was your request: "+reqBody+" and you affected "+nb+" rows");
-    }
+    } */
 }
