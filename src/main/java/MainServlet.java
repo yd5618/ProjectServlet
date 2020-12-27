@@ -20,6 +20,7 @@ public class MainServlet extends HttpServlet {
         // https://stackoverflow.com/questions/978061/http-get-with-request-body --> this gives more information on this
 
         String query = "SELECT * FROM products;";
+        String brand = " ";
 
         try {
             // Connecting to the DB and returning what is identified by the URL
@@ -27,7 +28,7 @@ public class MainServlet extends HttpServlet {
             Statement s = con.createStatement();
             ResultSet rset = s.executeQuery(query); // a ResultSet object is a table of data representing a database
             while(rset.next()) {
-                System.out.println(rset.getString("brand")+" "+rset.getString("id"));
+                brand = rset.getString("brand");
             }
             rset.close();
             s.close();
@@ -39,7 +40,7 @@ public class MainServlet extends HttpServlet {
 
         // what do we do with req?
         resp.setContentType("text/html");
-        resp.getWriter().write("You have accessed the servlet");
+        resp.getWriter().write("You have accessed the servlet"+brand); // this is where you return the information
         // req.getServletPath(); returns the ServletPath of the URL
     }
 
