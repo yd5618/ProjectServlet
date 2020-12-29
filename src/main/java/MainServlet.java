@@ -44,6 +44,8 @@ public class MainServlet extends HttpServlet {
             ResultSet rset = s.executeQuery(query); // a ResultSet object is a table of data representing a database
             // '.next()' moves cursor to the next row of the DB - loop iterates through result set
             while(rset.next()) {
+                product.clear();
+
                 brand = rset.getString(1);
                 product.add(brand);
                 amount = rset.getString(2);
@@ -62,8 +64,9 @@ public class MainServlet extends HttpServlet {
                 product.add(category);
                 currentstock = rset.getString(10);
                 product.add(currentstock);
+
+                products.add(product);
             }
-            products.add(product);
             rset.close();
             s.close();
             con.close();
