@@ -49,16 +49,12 @@ public class MainServlet extends HttpServlet {
             int colcount = rsmd.getColumnCount();
 
             while(rset.next()) {
-                product.clear();
-
                 int i = 1;
                 while(i<=colcount) {
                     product.add(rset.getString(i++));
                 }
 
-                ArrayList<String> productbis = product;
-
-                products.add(productbis);
+                products.add(product);
             }
 
             rset.close();
