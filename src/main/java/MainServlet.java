@@ -23,15 +23,16 @@ public class MainServlet extends HttpServlet {
         // https://stackoverflow.com/questions/978061/http-get-with-request-body --> this gives more information on this
 
         String query = "SELECT * FROM products;";
-        String brand = " ";
-        String amount = " ";
-        String sprice = " ";
-        String pprice = " ";
-        String fullstock = " ";
-        String limitation = " ";
-        String description = " ";
-        String category = " ";
-        String currentstock = " ";
+
+        String brand = "";
+        String amount = "";
+        String sprice = "";
+        String pprice = "";
+        String fullstock = "";
+        String limitation = "";
+        String description = "";
+        String category = "";
+        String currentstock = "";
 
         ArrayList<String> product = new ArrayList<String>();
         ArrayList<ArrayList> products = new ArrayList<ArrayList>();
@@ -61,9 +62,8 @@ public class MainServlet extends HttpServlet {
                 product.add(category);
                 currentstock = rset.getString(10);
                 product.add(currentstock);
-
-                products.add(product);
             }
+            products.add(product);
             rset.close();
             s.close();
             con.close();
@@ -71,10 +71,6 @@ public class MainServlet extends HttpServlet {
         catch (Exception e) {
             System.out.println("There was a problem");
         }
-
-        /*
-        for (int i=0; i<product.size(); i++)
-            System.out.println(product.get(i)); */
 
         Gson gson = new Gson();
         String jsonString = gson.toJson(products);
