@@ -6,6 +6,7 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -34,8 +35,8 @@ public class MainServlet extends HttpServlet {
         String category = "";
         String currentstock = "";
 
-        ArrayList<String> product = new ArrayList<String>();
         ArrayList<ArrayList> products = new ArrayList<ArrayList>();
+        ArrayList<String> product = new ArrayList<String>();
 
         try {
             // Connecting to the DB and returning what is identified by the URL
@@ -44,22 +45,14 @@ public class MainServlet extends HttpServlet {
             ResultSet rset = s.executeQuery(query); // a ResultSet object is a table of data representing a database
             // '.next()' moves cursor to the next row of the DB - loop iterates through result set
 
-            int i=0;
+            ResultSetMetaData rsmd = rset.getMetaData();
+            int colcount = rsmd.getColumnCount();
 
             while(rset.next()) {
-                product.add(i, (rset.getString(1)));
-                product.add(i, (rset.getString(2)));
-                product.add(i, (rset.getString(3)));
-                product.add(i, (rset.getString(4)));
-                product.add(i, (rset.getString(5)));
-                product.add(i, (rset.getString(6)));
-                product.add(i, (rset.getString(7)));
-                product.add(i, (rset.getString(8)));
-                product.add(i, (rset.getString(10)));
-
-                products.add(product);
-
-                i++;
+                int i = 1;
+                while(i<=colcount) {
+                    product.add(rset.getString(i++));
+                }
             }
 
             rset.close();
@@ -71,7 +64,7 @@ public class MainServlet extends HttpServlet {
         }
 
         Gson gson = new Gson();
-        String jsonString = gson.toJson(products);
+        String jsonString = gson.toJson(product);
 
         // what do we do with req?
         resp.setContentType("application/json");
