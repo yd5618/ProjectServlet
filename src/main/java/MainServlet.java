@@ -36,7 +36,6 @@ public class MainServlet extends HttpServlet {
         String currentstock = "";
 
         ArrayList<ArrayList> products = new ArrayList<ArrayList>();
-        ArrayList<String> product = new ArrayList<String>();
 
         try {
             // Connecting to the DB and returning what is identified by the URL
@@ -48,7 +47,11 @@ public class MainServlet extends HttpServlet {
             ResultSetMetaData rsmd = rset.getMetaData();
             int colcount = rsmd.getColumnCount();
 
+            products.clear();
+
             while(rset.next()) {
+                ArrayList<String> product = new ArrayList<>();
+
                 int i = 1;
                 while(i<=colcount) {
                     product.add(rset.getString(i++));
