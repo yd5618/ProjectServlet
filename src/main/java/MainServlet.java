@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 // Line below specifies how the servlet can be accessed basically ('/DBaccess') - can be accessed through more URL patterns if needed
@@ -21,14 +22,45 @@ public class MainServlet extends HttpServlet {
 
         String query = "SELECT * FROM products;";
         String brand = " ";
+        String amount = " ";
+        String sprice = " ";
+        String pprice = " ";
+        String fullstock = " ";
+        String limitation = " ";
+        String description = " ";
+        String category = " ";
+        String currentstock = " ";
+
+        ArrayList<String> product = new ArrayList<String>();
+        ArrayList<ArrayList> products = new ArrayList<ArrayList>();
 
         try {
             // Connecting to the DB and returning what is identified by the URL
             Connection con = DBConnection.initialiseDB();
             Statement s = con.createStatement();
             ResultSet rset = s.executeQuery(query); // a ResultSet object is a table of data representing a database
+            // '.next()' moves cursor to the next row of the DB - loop iterates through result set
             while(rset.next()) {
-                brand = rset.getString("brand");
+                brand = rset.getString(1);
+                product.add(brand);
+                amount = rset.getString(2);
+                product.add(amount);
+                sprice = rset.getString(3);
+                product.add(sprice);
+                pprice = rset.getString(4);
+                product.add(pprice);
+                fullstock = rset.getString(5);
+                product.add(fullstock);
+                limitation = rset.getString(6);
+                product.add(limitation);
+                description = rset.getString(7);
+                product.add(description);
+                category = rset.getString(8);
+                product.add(category);
+                currentstock = rset.getString(10);
+                product.add(currentstock);
+
+                products.add(product);
             }
             rset.close();
             s.close();
@@ -38,9 +70,12 @@ public class MainServlet extends HttpServlet {
             System.out.println("There was a problem");
         }
 
+        for (int i=0; i<product.size(); i++)
+            System.out.println(product.get(i));
+
         // what do we do with req?
         resp.setContentType("text/html");
-        resp.getWriter().write("You have accessed the servlet"+brand); // this is where you return the information
+        resp.getWriter().write("You have accessed the servlet "+brand); // this is where you return the information
         // req.getServletPath(); returns the ServletPath of the URL
     }
 
