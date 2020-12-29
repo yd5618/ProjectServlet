@@ -71,7 +71,11 @@ public class MainServlet extends HttpServlet {
             } */
 
             rset.next();
+            product.add(rset.getString(2));
+            products.add(product);
+            product.clear();
 
+            rset.next();
             product.add(rset.getString(2));
             products.add(product);
 
