@@ -49,11 +49,16 @@ public class MainServlet extends HttpServlet {
             int colcount = rsmd.getColumnCount();
 
             while(rset.next()) {
+                product.clear();
+
                 int i = 1;
                 while(i<=colcount) {
                     product.add(rset.getString(i++));
                 }
-                products.add(product);
+
+                ArrayList<String> productbis = product;
+
+                products.add(productbis);
             }
 
             rset.close();
@@ -65,7 +70,7 @@ public class MainServlet extends HttpServlet {
         }
 
         Gson gson = new Gson();
-        String jsonString = gson.toJson(product);
+        String jsonString = gson.toJson(products);
 
         // what do we do with req?
         resp.setContentType("application/json");
