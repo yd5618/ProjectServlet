@@ -69,10 +69,10 @@ public class MainServlet extends HttpServlet {
 
                 products.add(product);
             } */
-            rset.next();
-            for (int i=1; i<11; i++)
-                product.add(rset.getString(1));
 
+            rset.next();
+
+            product.add(rset.getString(2));
             products.add(product);
 
             rset.close();
