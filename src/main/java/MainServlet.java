@@ -25,16 +25,7 @@ public class MainServlet extends HttpServlet {
 
         String query = "SELECT * FROM products;";
 
-        String brand = "";
-        String amount = "";
-        String sprice = "";
-        String pprice = "";
-        String fullstock = "";
-        String limitation = "";
-        String description = "";
-        String category = "";
-        String currentstock = "";
-
+        // 'products' will contain ArrayLists of Strings that each correspond to one product (each ArrayList)
         ArrayList<ArrayList> products = new ArrayList<ArrayList>();
 
         try {
@@ -44,22 +35,27 @@ public class MainServlet extends HttpServlet {
             ResultSet rset = s.executeQuery(query); // a ResultSet object is a table of data representing a database
             // '.next()' moves cursor to the next row of the DB - loop iterates through result set
 
+            // Get number of columns for the table in the DB
             ResultSetMetaData rsmd = rset.getMetaData();
             int colcount = rsmd.getColumnCount();
 
-            products.clear();
+            products.clear(); // this may be useless?
 
+            // Iterate through the rows
             while(rset.next()) {
                 ArrayList<String> product = new ArrayList<>();
 
                 int i = 1;
-                while(i<=colcount) {
+                // Iterate through the columns
+                while(i <= colcount) {
                     product.add(rset.getString(i++));
                 }
 
+                // Add one of the products (represented by an ArrayList) to the bigger collection of all products
                 products.add(product);
             }
 
+            // Close everything manually
             rset.close();
             s.close();
             con.close();
@@ -68,20 +64,18 @@ public class MainServlet extends HttpServlet {
             System.out.println("There was a problem");
         }
 
+        // 'Converting' to JSON
         Gson gson = new Gson();
         String jsonString = gson.toJson(products);
 
-        // what do we do with req?
         resp.setContentType("application/json");
-        resp.getWriter().write(jsonString); // this is where you return the information
-        // req.getServletPath(); returns the ServletPath of the URL
+        resp.getWriter().write(jsonString); // this is where you return the information --> here in JSON format
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Get the request body (SQL query to be executed)
         String reqBody=req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        // int nb;
 
         try {
             // Connecting to the DB and querying what the POST request gave
