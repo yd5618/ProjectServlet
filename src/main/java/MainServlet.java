@@ -53,6 +53,7 @@ public class MainServlet extends HttpServlet {
                 while(i<=colcount) {
                     product.add(rset.getString(i++));
                 }
+                products.add(product);
             }
 
             rset.close();
