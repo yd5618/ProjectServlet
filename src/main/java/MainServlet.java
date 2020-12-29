@@ -44,43 +44,21 @@ public class MainServlet extends HttpServlet {
             ResultSet rset = s.executeQuery(query); // a ResultSet object is a table of data representing a database
             // '.next()' moves cursor to the next row of the DB - loop iterates through result set
 
-            /*
             while(rset.next()) {
                 product.clear();
 
-                brand = rset.getString(1);
-                product.add(brand);
-                amount = rset.getString(2);
-                product.add(amount);
-                sprice = rset.getString(3);
-                product.add(sprice);
-                pprice = rset.getString(4);
-                product.add(pprice);
-                fullstock = rset.getString(5);
-                product.add(fullstock);
-                limitation = rset.getString(6);
-                product.add(limitation);
-                description = rset.getString(7);
-                product.add(description);
-                category = rset.getString(8);
-                product.add(category);
-                currentstock = rset.getString(10);
-                product.add(currentstock);
+                product.add(rset.getString(1));
+                product.add(rset.getString(2));
+                product.add(rset.getString(3));
+                product.add(rset.getString(4));
+                product.add(rset.getString(5));
+                product.add(rset.getString(6));
+                product.add(rset.getString(7));
+                product.add(rset.getString(8));
+                product.add(rset.getString(10));
 
                 products.add(product);
-            } */
-
-            rset.absolute(3);
-            product.add(rset.getString(2));
-            product.add(rset.getString(3));
-            products.add(product);
-
-            ArrayList<String> product2 = new ArrayList<String>();
-
-            rset.absolute(4);
-            product2.add(rset.getString(2));
-            product2.add(rset.getString(3));
-            products.add(product2);
+            }
 
             rset.close();
             s.close();
