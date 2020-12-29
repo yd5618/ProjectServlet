@@ -1,3 +1,5 @@
+import com.google.gson.Gson;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -70,12 +72,16 @@ public class MainServlet extends HttpServlet {
             System.out.println("There was a problem");
         }
 
+        /*
         for (int i=0; i<product.size(); i++)
-            System.out.println(product.get(i));
+            System.out.println(product.get(i)); */
+
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(products);
 
         // what do we do with req?
-        resp.setContentType("text/html");
-        resp.getWriter().write("You have accessed the servlet "+brand); // this is where you return the information
+        resp.setContentType("application/json");
+        resp.getWriter().write(jsonString); // this is where you return the information
         // req.getServletPath(); returns the ServletPath of the URL
     }
 
