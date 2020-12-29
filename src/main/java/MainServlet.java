@@ -70,14 +70,17 @@ public class MainServlet extends HttpServlet {
                 products.add(product);
             } */
 
-            rset.next();
-            product.add(rset.getString(2));
-            products.add(product);
-            product.clear();
-
             rset.absolute(3);
             product.add(rset.getString(2));
+            product.add(rset.getString(3));
             products.add(product);
+
+            ArrayList<String> product2 = new ArrayList<String>();
+
+            rset.absolute(4);
+            product2.add(rset.getString(2));
+            product2.add(rset.getString(3));
+            products.add(product2);
 
             rset.close();
             s.close();
