@@ -1,5 +1,6 @@
 import com.google.gson.Gson;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -54,6 +55,11 @@ public class MainServlet extends HttpServlet {
                 // Add one of the products (represented by an ArrayList) to the bigger collection of all products
                 products.add(product);
             }
+
+            // here need to attach information as attribute to request - only if certain parameter
+            req.setAttribute("res1",products);
+            RequestDispatcher rd = context.getRequestDispatcher("GroupLoginScreen");
+            rd.forward(req,resp);
 
             // Close everything manually
             rset.close();
