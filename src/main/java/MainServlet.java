@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 // Line below specifies how the servlet can be accessed basically ('/DBaccess') - can be accessed through more URL patterns if needed
@@ -28,6 +29,7 @@ public class MainServlet extends HttpServlet {
 
         // 'products' will contain ArrayLists of Strings that each correspond to one product (each ArrayList)
         ArrayList<ArrayList> products = new ArrayList<ArrayList>();
+        ArrayList<Product> products_bis  = new ArrayList<>();
 
         try {
             // Connecting to the DB and returning what is identified by the URL
@@ -46,6 +48,19 @@ public class MainServlet extends HttpServlet {
             while(rset.next()) {
                 ArrayList<String> product = new ArrayList<>();
 
+                String brand = rset.getString(1);
+                String amount = rset.getString(2);
+                double sprice = rset.getDouble(3);
+                double pprice = rset.getDouble(4);
+                int fullstock = rset.getInt(5);
+                boolean limitation = rset.getBoolean(6);
+                String description = rset.getString(7);
+                String category = rset.getString(8);
+                int id = rset.getInt(9);
+                int currentstock = rset.getInt(10);
+
+                Product product_bis = new Product(brand, amount, sprice, pprice, fullstock, limitation, description, category, id, currentstock);
+
                 int i = 1;
                 // Iterate through the columns
                 while(i <= colcount) {
@@ -53,13 +68,15 @@ public class MainServlet extends HttpServlet {
                 }
 
                 // Add one of the products (represented by an ArrayList) to the bigger collection of all products
+                products_bis.add(product_bis);
                 products.add(product);
             }
 
             // here need to attach information as attribute to request - only if certain parameter
-            req.setAttribute("res1",products);
-            RequestDispatcher rd = context.getRequestDispatcher("GroupLoginScreen");
-            rd.forward(req,resp);
+
+            req.setAttribute("products_list",products_bis);
+            RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp"); // not sure about the "index.jsp"
+            dispatcher.forward(req,resp);
 
             // Close everything manually
             rset.close();
