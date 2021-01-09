@@ -29,7 +29,7 @@ public class MainServlet extends HttpServlet {
 
         // 'products' will contain ArrayLists of Strings that each correspond to one product (each ArrayList)
         ArrayList<ArrayList> products = new ArrayList<ArrayList>();
-        ArrayList<Product> products_bis  = new ArrayList<>();
+        // ArrayList<Product> products_bis  = new ArrayList<>();
 
         try {
             // Connecting to the DB and returning what is identified by the URL
@@ -48,6 +48,7 @@ public class MainServlet extends HttpServlet {
             while(rset.next()) {
                 ArrayList<String> product = new ArrayList<>();
 
+                /*
                 String brand = rset.getString(1);
                 String amount = rset.getString(2);
                 double sprice = rset.getDouble(3);
@@ -60,6 +61,7 @@ public class MainServlet extends HttpServlet {
                 int currentstock = rset.getInt(10);
 
                 Product product_bis = new Product(brand, amount, sprice, pprice, fullstock, limitation, description, category, id, currentstock);
+                */
 
                 int i = 1;
                 // Iterate through the columns
@@ -68,15 +70,17 @@ public class MainServlet extends HttpServlet {
                 }
 
                 // Add one of the products (represented by an ArrayList) to the bigger collection of all products
-                products_bis.add(product_bis);
+                // products_bis.add(product_bis);
                 products.add(product);
             }
 
             // here need to attach information as attribute to request - only if certain parameter
 
+            /*
             req.setAttribute("products_list",products_bis);
-            RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp"); // not sure about the "index.jsp"
+            RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp"); // not sure about the "index.jsp" --> should be an URL?
             dispatcher.forward(req,resp);
+             */
 
             // Close everything manually
             rset.close();
