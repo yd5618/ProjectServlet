@@ -13,9 +13,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns={"/clients"},loadOnStartup = 1)
+@WebServlet(urlPatterns={"/access"},loadOnStartup = 1)
 
-public class ClientServlet extends HttpServlet {
+public class AccessServlet extends HttpServlet {
     // doGet will handle GET requests of our client & give appropriate response (retrieve information from the DB)
     // doPost will handle POST requests of our client & give appropriate response (add something to the DB/modify something in the DB)
 
@@ -39,7 +39,7 @@ public class ClientServlet extends HttpServlet {
             ResultSetMetaData rsmd = rset.getMetaData();
             int colcount = rsmd.getColumnCount();
 
-            items.clear(); // this may be useless?
+            // this may be useless?
 
             // Iterate through the rows
             while(rset.next()) {
