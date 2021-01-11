@@ -21,13 +21,12 @@ public class ClientServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Get body of the request - this is not good practice => find another way to do this - GET should only return information specified by URI/URL
-        // https://stackoverflow.com/questions/978061/http-get-with-request-body --> this gives more information on this
 
-        String query = "SELECT * FROM clients;";
+        String param = req.getParameter("item");
+        String query = "SELECT * FROM "+param+";";
 
         // 'clients' will contain ArrayLists of Strings that each correspond to one client (each ArrayList)
-        ArrayList<ArrayList> clients = new ArrayList<ArrayList>();
+        ArrayList<ArrayList> items = new ArrayList<ArrayList>();
 
         try {
             // Connecting to the DB and returning what is identified by the URL
@@ -40,20 +39,20 @@ public class ClientServlet extends HttpServlet {
             ResultSetMetaData rsmd = rset.getMetaData();
             int colcount = rsmd.getColumnCount();
 
-            clients.clear(); // this may be useless?
+            items.clear(); // this may be useless?
 
             // Iterate through the rows
             while(rset.next()) {
-                ArrayList<String> client = new ArrayList<>();
+                ArrayList<String> item = new ArrayList<>();
 
                 int i = 1;
                 // Iterate through the columns
                 while(i <= colcount) {
-                    client.add(rset.getString(i++));
+                    item.add(rset.getString(i++));
                 }
 
                 // Add one of the clients (represented by an ArrayList) to the bigger collection of all clients
-                clients.add(client);
+                items.add(item);
             }
 
             // Close everything manually
@@ -67,7 +66,7 @@ public class ClientServlet extends HttpServlet {
 
         // 'Converting' to JSON
         Gson gson = new Gson();
-        String jsonString = gson.toJson(clients);
+        String jsonString = gson.toJson(items);
 
         resp.setContentType("application/json");
         resp.getWriter().write(jsonString); // this is where you return the information --> here in JSON format
