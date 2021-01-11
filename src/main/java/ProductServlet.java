@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns={"/Products"},loadOnStartup = 1)
+@WebServlet(urlPatterns={"/products"},loadOnStartup = 1)
 
 public class ProductServlet extends HttpServlet {
     // doGet will handle GET requests of our client & give appropriate response (retrieve information from the DB)
