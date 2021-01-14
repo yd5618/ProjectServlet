@@ -22,11 +22,13 @@ public class AccessServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String param = req.getParameter("item");
+        //String param = req.getParameter("item");
         // String nb = req.getParameter("nb");
         // String query="";
 
-        String query = "SELECT * FROM "+param+";";
+        String query = "SELECT * FROM products;";
+
+        // String query = "SELECT * FROM "+param+";";
         /*
         if (item_param == "clients") {
             query = "SELECT * FROM "+item_param+";";
@@ -85,10 +87,8 @@ public class AccessServlet extends HttpServlet {
         Gson gson = new Gson();
         String jsonString = gson.toJson(items);
 
-        // resp.setContentType("application/json");
-        // resp.getWriter().write(jsonString); // this is where you return the information --> here in JSON format
-        resp.setContentType("text/html");
-        resp.getWriter().write(String.valueOf(req));
+        resp.setContentType("application/json");
+        resp.getWriter().write(jsonString); // this is where you return the information --> here in JSON format
     }
 
     @Override
