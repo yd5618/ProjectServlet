@@ -82,8 +82,10 @@ public class AccessServlet extends HttpServlet {
         Gson gson = new Gson();
         String jsonString = gson.toJson(items);
 
-        resp.setContentType("application/json");
-        resp.getWriter().write(jsonString); // this is where you return the information --> here in JSON format
+        // resp.setContentType("application/json");
+        // resp.getWriter().write(jsonString); // this is where you return the information --> here in JSON format
+        resp.setContentType("text/html");
+        resp.getWriter().write(String.valueOf(req));
     }
 
     @Override
