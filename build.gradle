@@ -24,6 +24,8 @@ build.mustRunAfter clean
 
 dependencies {
     providedCompile 'javax.servlet:javax.servlet-api:3.1.0' // in the context of servlet
+    testCompile group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.12'
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'com.google.code.gson', name: 'gson', version: '2.7' // might be needed BUT not necessary
     runtimeOnly group: 'org.postgresql', name: 'postgresql', version: '42.2.18' // in the context of databases
