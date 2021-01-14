@@ -1,3 +1,4 @@
+/*
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -52,3 +53,4 @@ public class TestAccessServlet {
         // test req.getReader() and the resp.getWriter as well and the whole thing with our statement s maybe?
     }
 }
+*/

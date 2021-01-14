@@ -22,12 +22,12 @@ public class AccessServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String item = req.getParameter("item");
+        String item_param = req.getParameter("item");
         String nb = req.getParameter("nb");
         String query="";
 
-        if (item == "clients") {
-            query = "SELECT * FROM " + item + ";";
+        if (item_param == "clients") {
+            query = "SELECT * FROM "+item_param+";";
         }
         else if(nb == "1") {
             query = "SELECT * FROM products;";
