@@ -13,6 +13,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/* This Servlet provides access to the DB - retrieving data or modifying data */
+
 @WebServlet(urlPatterns={"/access"},loadOnStartup = 1)
 
 public class AccessServlet extends HttpServlet {
@@ -23,27 +25,9 @@ public class AccessServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String param = req.getParameter("item");
-        // String nb = req.getParameter("nb");
-        // String query="";
-        // String query = "SELECT * FROM products;";
-
         String query = "SELECT * FROM "+param+";";
-        /*
-        if (item_param == "clients") {
-            query = "SELECT * FROM "+item_param+";";
-        }
-        else if(nb == "1") {
-            query = "SELECT * FROM products;";
-        }
-        else if(nb == "2") {
-            query = "SELECT * FROM products2;";
-        }
-        else if(nb == "2") {
-            query = "SELECT * FROM products3;";
-        }
-        */
 
-        // 'clients' will contain ArrayLists of Strings that each correspond to one client (each ArrayList)
+        // 'items' will contain ArrayLists of Strings that each correspond to one item - client or product (each ArrayList)
         ArrayList<ArrayList> items = new ArrayList<ArrayList>();
 
         try {
@@ -53,13 +37,11 @@ public class AccessServlet extends HttpServlet {
             ResultSet rset = s.executeQuery(query); // a ResultSet object is a table of data representing a database
             // '.next()' moves cursor to the next row of the DB - loop iterates through result set
 
-            // Get number of columns for the table in the DB
+            // Get number of columns for the table being retrieved from the DB
             ResultSetMetaData rsmd = rset.getMetaData();
             int colcount = rsmd.getColumnCount();
 
-            // this may be useless?
-
-            // Iterate through the rows
+            // Iterate through the rows to get the information
             while(rset.next()) {
                 ArrayList<String> item = new ArrayList<>();
 
@@ -69,7 +51,7 @@ public class AccessServlet extends HttpServlet {
                     item.add(rset.getString(i++));
                 }
 
-                // Add one of the clients (represented by an ArrayList) to the bigger collection of all clients
+                // Add one of the items (represented by an ArrayList) to the bigger collection of all items
                 items.add(item);
             }
 
@@ -87,7 +69,7 @@ public class AccessServlet extends HttpServlet {
         String jsonString = gson.toJson(items);
 
         resp.setContentType("application/json");
-        resp.getWriter().write(jsonString); // this is where you return the information --> here in JSON format
+        resp.getWriter().write(jsonString); // this is where the information is returned (as part of the response) --> here in JSON format
     }
 
     @Override
@@ -99,7 +81,7 @@ public class AccessServlet extends HttpServlet {
             // Connecting to the DB and querying what the POST request gave
             Connection con = DBConnection.initialiseDB();
             Statement s = con.createStatement();
-            s.executeUpdate(reqBody); // will it actually return an int with the nb of rows affected?
+            s.executeUpdate(reqBody);
             s.close();
             con.close();
         }
@@ -108,6 +90,6 @@ public class AccessServlet extends HttpServlet {
         }
 
         resp.setContentType("text/html");
-        resp.getWriter().write("You have successfully modified the DB - this was your request: "+reqBody);
+        resp.getWriter().write("You have successfully modified the DB - this was your request: "+reqBody); // Allows to check what has been asked from the DB
     }
 }
