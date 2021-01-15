@@ -24,7 +24,9 @@ public class AccessServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        // Get parameter from URL that indicates if we want clients or products from branch 1,2 or 3
         String param = req.getParameter("item");
+        // SQL query that allows to retrieve all the data from the appropriate table
         String query = "SELECT * FROM "+param+";";
 
         // 'items' will contain ArrayLists of Strings that each correspond to one item - client or product (each ArrayList)
